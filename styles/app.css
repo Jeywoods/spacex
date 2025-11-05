@@ -1,17 +1,74 @@
 .main {
-    display: flex;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
 }
 
 .aside {
-    flex-grow: 0.3;
+  flex-grow: 0.3;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .content {
-    flex-grow: 0.7;
+  flex-grow: 0.7;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
-#listContainer{
-    height: 300px;
-    overflow: hidden;
-    overflow-y: scroll;
-    border: black 1px solid;
+
+#listContainer {
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: #fff;
+  padding: 4px;
 }
+
+#listContainer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#listContainer li {
+  cursor: pointer;
+  padding: 6px 8px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s, color 0.2s;
+}
+
+#listContainer li:hover {
+  background: #e9f2ff;
+  color: #0d47a1;
+}
+
+header {
+  text-align: center;
+  padding: 10px 0;
+  background: #0d47a1;
+  color: white;
+  font-family: "Segoe UI", Arial, sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#map svg {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: #eef3f6;
+}
+
+.launchpad-dot {
+  stroke: white;
+  stroke-width: 1;
+  transition: all 0.2s ease;
+}
+
+
+
