@@ -64,11 +64,36 @@ header {
   background: #eef3f6;
 }
 
-.launchpad-dot {
-  stroke: white;
-  stroke-width: 1;
-  transition: all 0.2s ease;
+
+.world-map {
+  fill: #e0e0e0;
+  stroke: #999;
 }
 
+.launchpad-point {
+  stroke: white;
+  stroke-width: 1.5;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  fill: #1976d2;
+  opacity: 0.85;
+}
 
+.launchpad-point:hover {
+  stroke-width: 2.5;
+  opacity: 1;
+  fill: orange;
+}
 
+.tooltip {
+  position: absolute;
+  visibility: hidden;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  pointer-events: none;
+}

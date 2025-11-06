@@ -49,48 +49,47 @@ function drawMap(launchpads) {
 
   const path = d3.geoPath().projection(projection);
 
-  svg.append("g")
-    .selectAll("path")
-    .data(Geo.features)
-    .enter()
-    .append("path")
-    .attr("d", path)
-    .attr("fill", "#e0e0e0")
-    .attr("stroke", "#999");
+  svg.append('path')
+    .datum({type: "FeatureCollection", features: Geo.features})
+    .attr('d', path)
+    .attr('class', 'world-map');
 
-  const dots = svg.append("g")
-    .selectAll("circle")
-    .data(launchpads)
+  const launchpadsGeoJSON = {
+    type: "FeatureCollection",
+    features: launchpads.map(pad => ({
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [pad.longitude, pad.latitude]
+      },
+      properties: {
+        name: pad.name,
+        locality: pad.locality,
+        region: pad.region,
+        status: pad.status
+      }
+    }))
+  };
+
+  const dots = svg.append('g')
+    .selectAll('.launchpad-point')
+    .data(launchpadsGeoJSON.features)
     .enter()
-    .append("circle")
-    .attr("class", "launchpad-dot")
-    .attr("cx", d => projection([d.longitude, d.latitude])[0])
-    .attr("cy", d => projection([d.longitude, d.latitude])[1])
-    .attr("r", 5)
-    .attr("fill", "#1976d2")
-    .attr("opacity", 0.85);
+    .append('path')
+    .attr('d', path.pointRadius(6))
+    .attr('class', 'launchpad-point');
 
   const tooltip = d3.select("body")
     .append("div")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("visibility", "hidden")
-    .style("background", "#fff")
-    .style("border", "1px solid #ccc")
-    .style("padding", "6px 10px")
-    .style("border-radius", "4px")
-    .style("font-size", "14px")
-    .style("box-shadow", "0 2px 6px rgba(0,0,0,0.1)");
+    .attr("class", "tooltip");
 
   dots.on("mouseover", function (event, d) {
       tooltip
-        .html(`<b>${d.name}</b><br>${d.locality}, ${d.region}`)
+        .html(`<b>${d.properties.name}</b><br>${d.properties.locality}, ${d.properties.region}`)
         .style("visibility", "visible");
 
       d3.select(this)
-        .transition().duration(150)
-        .attr("r", 9)
-        .attr("fill", "orange");
+        .classed('hover', true);
     })
     .on("mousemove", function (event) {
       tooltip
@@ -99,10 +98,7 @@ function drawMap(launchpads) {
     })
     .on("mouseout", function () {
       tooltip.style("visibility", "hidden");
-
       d3.select(this)
-        .transition().duration(150)
-        .attr("r", 5)
-        .attr("fill", "#1976d2");
+        .classed('hover', false);
     });
 }
